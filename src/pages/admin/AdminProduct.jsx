@@ -623,7 +623,7 @@ const AdminProduct = () => {
                             opacity: item.status === "unavailable" ? 0.5 : 1,
                           }}
                         />
-                        <Eye className="w-4 h-4 text-gray-400 cursor-pointer" />
+                        
                         <Trash2
                           className="w-4 h-4 text-red-400 cursor-pointer"
                           onClick={

@@ -18,15 +18,18 @@ const Register = () => {
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Email không hợp lệ")
-      .matches(/^\S*$/, "Email không được chứa dấu cách")
+      .matches(
+        /^[^ \t\n\r]+$/i,
+        "Email không được chứa khoảng trắng hoặc ký tự trắng ở bất kỳ vị trí nào"
+      )
       .required("Bắt buộc"),
     password: Yup.string()
       .min(6, "Tối thiểu 6 ký tự")
-      .matches(/^\S*$/, "Mật khẩu không được chứa dấu cách")
+      .matches(/^\S+$/, "Mật khẩu không được chứa dấu cách")
       .required("Bắt buộc"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Mật khẩu không khớp")
-      .matches(/^\S*$/, "Mật khẩu xác nhận không được chứa dấu cách")
+      .matches(/^\S+$/, "Mật khẩu xác nhận không được chứa dấu cách")
       .required("Bắt buộc"),
   });
 
@@ -42,10 +45,11 @@ const Register = () => {
             href="/"
             className="fixed top-0 left-6 flex items-center gap-x-2 text-2xl font-bold text-white"
           >
-            <img src="/images/bamora-logo.png"
+            <img
+              src="/images/bamora-logo.png"
               alt="Bamora Logo"
-              className="h-32"/>
-            
+              className="h-32"
+            />
           </a>
           <div className="w-full sm:max-w-md">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -74,7 +78,9 @@ const Register = () => {
                       { cache: "no-store" }
                     );
                     if (!res.ok) {
-                      throw new Error(`Lỗi khi lấy danh sách người dùng: ${res.statusText}`);
+                      throw new Error(
+                        `Lỗi khi lấy danh sách người dùng: ${res.statusText}`
+                      );
                     }
                     const data = await res.json();
                     console.log("Dữ liệu API trả về (Register):", data); // Debug danh sách user
@@ -112,7 +118,9 @@ const Register = () => {
                     );
 
                     if (!response.ok) {
-                      throw new Error(`Đăng ký thất bại: ${response.statusText}`);
+                      throw new Error(
+                        `Đăng ký thất bại: ${response.statusText}`
+                      );
                     }
 
                     const responseData = await response.json();
@@ -131,10 +139,20 @@ const Register = () => {
                   }
                 }}
               >
-                {({ isSubmitting, touched, errors, handleChange, handleBlur, values }) => (
+                {({
+                  isSubmitting,
+                  touched,
+                  errors,
+                  handleChange,
+                  handleBlur,
+                  values,
+                }) => (
                   <Form className="space-y-4 md:space-y-6">
                     <div>
-                      <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">
+                      <label
+                        htmlFor="email"
+                        className="block mb-2 text-sm font-medium text-white"
+                      >
                         Email của bạn
                       </label>
                       <input
@@ -148,11 +166,16 @@ const Register = () => {
                         value={values.email}
                       />
                       {touched.email && errors.email && (
-                        <div className="text-orange-500 text-sm min-h-[20px]">{errors.email}</div>
+                        <div className="text-orange-500 text-sm min-h-[20px]">
+                          {errors.email}
+                        </div>
                       )}
                     </div>
                     <div>
-                      <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">
+                      <label
+                        htmlFor="password"
+                        className="block mb-2 text-sm font-medium text-white"
+                      >
                         Mật khẩu
                       </label>
                       <input
@@ -166,11 +189,16 @@ const Register = () => {
                         value={values.password}
                       />
                       {touched.password && errors.password && (
-                        <div className="text-orange-500 text-sm min-h-[20px]">{errors.password}</div>
+                        <div className="text-orange-500 text-sm min-h-[20px]">
+                          {errors.password}
+                        </div>
                       )}
                     </div>
                     <div>
-                      <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-white">
+                      <label
+                        htmlFor="confirmPassword"
+                        className="block mb-2 text-sm font-medium text-white"
+                      >
                         Xác nhận mật khẩu
                       </label>
                       <input
@@ -184,7 +212,9 @@ const Register = () => {
                         value={values.confirmPassword}
                       />
                       {touched.confirmPassword && errors.confirmPassword && (
-                        <div className="text-orange-500 text-sm min-h-[20px]">{errors.confirmPassword}</div>
+                        <div className="text-orange-500 text-sm min-h-[20px]">
+                          {errors.confirmPassword}
+                        </div>
                       )}
                     </div>
 
@@ -208,7 +238,7 @@ const Register = () => {
                     )}
 
                     <p className="text-sm font-light text-white mt-4">
-                    Đã có tài khoản?{" "}
+                      Đã có tài khoản?{" "}
                       <button
                         type="button"
                         onClick={() => navigate("/login")}
@@ -226,9 +256,12 @@ const Register = () => {
 
         <div className="text-white bg-black/30 backdrop-blur-sm p-6 rounded-lg relative z-10 flex flex-col w-full md:w-1/2 py-12 px-4 text-center order-2 md:order-2">
           <h2 className="text-[3.5em] font-bold text-white">Xin chào!</h2>
-          <h3 className="text-2xl text-white mt-2">đến với trang web của chúng tôi</h3>
+          <h3 className="text-2xl text-white mt-2">
+            đến với trang web của chúng tôi
+          </h3>
           <p className="text-base text-white leading-relaxed mt-5 max-w-md mx-auto break-words px-4">
-          Tạo nên một không gian sống hiện đại và tinh tế với những thiết kế nội thất cao cấp, sáng tạo và đầy cảm hứng.
+            Tạo nên một không gian sống hiện đại và tinh tế với những thiết kế
+            nội thất cao cấp, sáng tạo và đầy cảm hứng.
           </p>
           <div className="mt-5 space-x-4 text-xl flex justify-center">
             <i className="fa-brands fa-instagram text-white hover:text-blue-400" />

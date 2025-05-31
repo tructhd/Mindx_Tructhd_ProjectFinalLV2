@@ -37,35 +37,7 @@ const Header = () => {
 
         {/* Search, Icons, Avatar */}
         <div className="flex items-center space-x-4">
-          {/* Search bar */}
-          <form className="relative w-48 lg:w-64 transition-all duration-300">
-            <input
-              type="text"
-              placeholder="Tìm kiếm ..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-gray-700 text-white border border-gray-600 rounded-full py-2 px-4 focus:w-64 focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300"
-            />
-            
-            <button
-              type="submit"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-400"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 20 20"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 19l-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                />
-              </svg>
-            </button>
-          </form>
+          
 
           {/* Icons */}
           <Heart
